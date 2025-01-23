@@ -1,19 +1,27 @@
 import React from 'react'
 import mytineraryLogo from '../assets/media/mytineraryLogo.jpg'
 import circle_right from '../assets/media/circle_right.jpg'
-import Login from './Login'
-import Register from './Register'
 import { Box, Typography, Button, Grid2 } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom'
+import { signInWithGoogle } from '../utilities/firebase';
 
 
 export const Landing = () => {
-  
+  const navigate = useNavigate();
+
+  const handleClickCities = () => {
+    navigate('/cities');
+  };
   
   return (
     <>
       
-      <Box sx={{ textAlign: 'center', p: 2, backgroundImage: 'url("/images/fondo3.jpg")', backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: 'no-repeat' }}>
+      <Box sx={{ 
+  textAlign: 'center', 
+  p: 2, 
+  backgroundColor: 'black' 
+}}>
         {/* Logo */}
         <Box mb={4}>
           <img 
@@ -27,8 +35,8 @@ export const Landing = () => {
 
         {/* Info Section */}
         <Box mb={7}>
-          <Typography sx={{ color: "black", fontStyle: 'italic', fontFamily: 'Arial Rounded MT Bold', fontWeight: 'bold' }} variant="h7" component="h5">
-            Find your perfect trip, designed by insiders who know and love their cities
+          <Typography sx={{ color: "#09B6EB", fontStyle: 'italic', fontFamily: "Permanent Marker", fontWeight: 'bold' }} variant="h7" component="h5">
+            Find your perfect trip, designed by <br/>  insiders who know and love their cities
           </Typography>
         </Box>
 
@@ -36,44 +44,47 @@ export const Landing = () => {
         <Box
   mb={6}
   sx={{
-    display: 'flex', // Hacer que los elementos se comporten como un contenedor flexible
-    flexDirection: 'column', // Alinearlos en columna
-    justifyContent: 'center', // Centrar verticalmente
-    alignItems: 'center', // Centrar horizontalmente
-    textAlign: 'center', // Asegurar que el texto esté centrado
+    display: 'flex', 
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    textAlign: 'center', 
   }}
 >
   <Typography
     variant="h5"
     component="h4"
-    sx={{ color: 'black', fontWeight: 'bold', fontFamily: 'Arial Rounded MT Bold', mb: 10 }}
+    sx={{ color: '#09B6EB', fontWeight: 'bold', fontFamily: 'Arial Rounded MT Bold', mb: 10 }}
   >
     Start browsing
   </Typography>
   <Button
     variant="contained"
+    onClick={handleClickCities}
     sx={{
-      borderRadius: '50%', // Hace el botón circular
-      minWidth: '60px', // Tamaño mínimo para el ancho
-      minHeight: '60px', // Tamaño mínimo para la altura
-      backgroundColor: 'red', // Color de fondo
+      borderRadius: '50%', 
+      minWidth: '60px', 
+      minHeight: '60px', 
+      backgroundColor: '#09B6EB', 
       transition: 'all 0.1s ease',
       '&:hover': {
-        backgroundColor: '#0E6FFF',
-        transform: 'scale(1.05)' // Color al pasar el mouse
+        backgroundColor: '#BDF048',
+        transform: 'scale(1.05)' 
       },
-      display: 'flex', // Para centrar el contenido
+      display: 'flex', 
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: '-50px'
     }}
   >
     <ArrowForwardIcon sx={{ fontSize: '24px', color: 'white' }} />
   </Button>
+  
 </Box>
 
         {/* Buttons Section */}
         <Box>
-          <Typography sx={{color: 'white', fontFamily: 'Arial Rounded MT Bold', fontWeight: 'bold'}} variant="h6" component="h4" mb={2}>
+          <Typography sx={{color: '#09B6EB', fontFamily: 'Arial Rounded MT Bold', fontWeight: 'bold'}} variant="h6" component="h4" mb={2}>
             Want to build your own MYtinerary?
           </Typography>
           <Grid2
@@ -83,28 +94,44 @@ export const Landing = () => {
             alignItems="center"
           >
             <Grid2 item>
-              <Button  sx={{ fontFamily: 'Arial Rounded MT Bold',
-                             fontWeight: 'bold',
-                             backgroundColor: 'red',
-                             transition: 'all 0.1s ease',
-                             '&:hover': {
-                              backgroundColor: '#0E6FFF',
-                              transform: 'scale(1.05)'
-                             } }} variant="contained">
-                Register
-              </Button>
+            <Button
+  onClick={() => signInWithGoogle()}  
+  sx={{ 
+    fontFamily: 'Arial Rounded MT Bold',
+    fontWeight: 'bold',
+    fontSize: '12px', 
+    padding: '6px 12px', 
+    backgroundColor: '#09B6EB',
+    transition: 'all 0.1s ease',
+    '&:hover': {
+      backgroundColor: '#BDF048',
+      transform: 'scale(1.05)',
+    },
+  }} 
+  variant="contained"
+>
+  Login
+</Button>
             </Grid2>
             <Grid2 item>
-              <Button  sx={{ fontFamily: 'Arial Rounded MT Bold',
-                             fontWeight: 'bold',
-                             backgroundColor: 'red',
-                             transition: 'all 0.1s ease',
-                             '&:hover': {
-                              backgroundColor: '#0E6FFF',
-                              transform: 'scale(1.05)'
-                             } }} variant="contained">
-                Login
-              </Button>
+            <Button  
+  onClick={() => signInWithGoogle()}  
+  sx={{ 
+    fontFamily: 'Arial Rounded MT Bold',
+    fontWeight: 'bold',
+    fontSize: '12px', 
+    padding: '6px 12px', 
+    backgroundColor: '#09B6EB',
+    transition: 'all 0.1s ease',
+    '&:hover': {
+      backgroundColor: '#BDF048',
+      transform: 'scale(1.05)',
+    },
+  }} 
+  variant="contained"
+>
+  Create account
+</Button>
             </Grid2>
           </Grid2>
         </Box>
