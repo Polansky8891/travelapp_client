@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import ItinerariesList from './Components/Itineraries';
 import AddCityForm from './Components/CityFormulari';
+import AddItineraryForm from './Components/ItineraryFormulari';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/cities" element={<CitiesList />} />
         <Route path="/country/:countryName" element={<ItinerariesList/>} />
         <Route path="/addcity" element={<AddCityForm/>} />
+        <Route path="/additinerary" element={<AddItineraryForm/>} />
       </Routes>
     </Router>
     </Container>

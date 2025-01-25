@@ -55,6 +55,15 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
               </div>
             </div>
           ))}
+          {/* Botón para añadir una nueva ciudad */}
+          <div style={{ textAlign: "center", marginTop: "10px" }}>
+          <button  
+            onClick={() => navigate("/additinerary")}
+            style={styles.addButton}
+          >
+            ➕ Add Itinerary
+          </button>
+        </div>
         </div>
       ) : (
         <p style={{ fontSize: "18px" }}>No itineraries available for {countryName}.</p>
