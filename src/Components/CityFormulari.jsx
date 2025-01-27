@@ -33,15 +33,38 @@ const AddCityForm = () => {
       return valid;
     };
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      
+    
       if (validateForm()) {
-        console.log("Form Submitted:", formData);
-        alert("City added successfully!");
-        setFormData({ city: "", country: "" }); // Limpiar formulario
+        try {
+          const response = await fetch("http://localhost:5000/cities/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: formData.city, // <-- Cambia `city` por `name`
+              country: formData.country
+            }),
+          });
+    
+          const data = await response.json();
+          console.log("Response from server:", data);
+    
+          if (response.ok) {
+            alert("City added successfully!");
+            setFormData({ city: "", country: "" }); // Limpiar formulario
+          } else {
+            alert("Error adding city: " + data.details);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Failed to connect to server");
+        }
       }
     };
+    
   
     return (
       <div style={styles.container}>
