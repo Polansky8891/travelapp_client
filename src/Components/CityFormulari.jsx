@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const AddCityForm = () => {
     const [formData, setFormData] = useState({ city: "", country: "" });
     const [errors, setErrors] = useState({ city: "", country: "" });
-  
+    const navigate = useNavigate()
+    
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
       setErrors({ ...errors, [e.target.name]: "" }); // Limpiar errores cuando el usuario escriba
+      ;
     };
   
     const validateForm = () => {
@@ -68,37 +71,44 @@ const AddCityForm = () => {
   
     return (
       <div style={styles.container}>
-        <h2>Add a New City</h2>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.inputGroup}>
-            <label>City:</label>
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              style={styles.input}
-            />
-            {errors.city && <p style={styles.error}>{errors.city}</p>}
-          </div>
-  
-          <div style={styles.inputGroup}>
-            <label>Country:</label>
-            <input
-              type="text"
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              style={styles.input}
-            />
-            {errors.country && <p style={styles.error}>{errors.country}</p>}
-          </div>
-  
-          <button type="submit" style={styles.button}>Add City</button>
-        </form>
-      </div>
-    );
-  };
+      <h2>Add a New City</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label>City:</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            style={styles.input}
+          />
+          {errors.city && <p style={styles.error}>{errors.city}</p>}
+        </div>
+
+        <div style={styles.inputGroup}>
+          <label>Country:</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            style={styles.input}
+          />
+          {errors.country && <p style={styles.error}>{errors.country}</p>}
+        </div>
+
+        <button type="submit" style={styles.button}>Add City</button>
+      </form>
+
+      {/* 🔵 Botón para volver a la lista de ciudades */}
+      <div style={{ marginTop: "30px" }}>
+      <button onClick={() => navigate("/cities")} style={styles.backButton}>
+        ⬅ Back to Cities
+      </button>
+    </div>
+    </div>
+  );
+};
   
   const styles = {
     container: {

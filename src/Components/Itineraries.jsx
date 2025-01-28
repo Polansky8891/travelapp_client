@@ -55,63 +55,63 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2 style={{ marginBottom: "20px" }}>
-        Itinerary for {countryName}
-      </h2>
+    <h2 style={{ marginBottom: "20px" }}>
+      Itinerary for {countryName}
+    </h2>
 
-      {filteredItineraries.length > 0 ? (
-        <div style={styles.gridContainer}>
-          {filteredItineraries.map((itinerary, index) => (
-            <div key={index} style={styles.card}>
-              <img 
-                src={itinerary.imageUrl} 
-                alt={itinerary.name} 
-                style={styles.image} 
-                onError={(e) => e.target.style.display = 'none'} 
-              />
-              <div style={styles.cardContent}>
-                <h3>{itinerary.name}</h3>
-                <p><strong>City:</strong> {Array.isArray(itinerary.city) ? itinerary.city.join(", ") : itinerary.city}</p>
-                <p><strong>Days:</strong> {itinerary.days}</p>
-                <p><strong>Type:</strong> {itinerary.type}</p>
-                <p><strong>Difficulty:</strong> {itinerary.difficulty}</p>
-                <p><strong>Price:</strong> ${itinerary.price}</p>
+    {filteredItineraries.length > 0 ? (
+      <div style={styles.gridContainer}>
+        {filteredItineraries.map((itinerary, index) => (
+          <div key={index} style={styles.card}>
+            <img 
+              src={itinerary.imageUrl} 
+              alt={itinerary.name} 
+              style={styles.image} 
+              onError={(e) => e.target.style.display = 'none'} 
+            />
+            <div style={styles.cardContent}>
+              <h3>{itinerary.name}</h3>
+              <p><strong>City:</strong> {Array.isArray(itinerary.city) ? itinerary.city.join(", ") : itinerary.city}</p>
+              <p><strong>Days:</strong> {itinerary.days}</p>
+              <p><strong>Type:</strong> {itinerary.type}</p>
+              <p><strong>Difficulty:</strong> {itinerary.difficulty}</p>
+              <p><strong>Price:</strong> ${itinerary.price}</p>
 
-                {/* Botón para eliminar itinerario */}
-                <div style={{ textAlign: "center", marginTop: "10px" }}>
-                  <button  
-                    onClick={() => handleDelete(itinerary._id)} 
-                    style={styles.deleteButton}
-                  >
-                    🗑 Delete Itinerary
-                  </button>
-                </div>
+              {/* Botón para eliminar itinerario */}
+              <div style={{ textAlign: "center", marginTop: "10px" }}>
+                <button  
+                  onClick={() => handleDelete(itinerary._id)} 
+                  style={styles.deleteButton}
+                >
+                  🗑 Delete Itinerary
+                </button>
               </div>
             </div>
-          ))}
-
-          {/* Botón para añadir un nuevo itinerario */}
-          <div style={{ textAlign: "center", marginTop: "10px" }}>
-            <button  
-              onClick={() => navigate("/additinerary")}
-              style={styles.addButton}
-            >
-              ➕ Add Itinerary
-            </button>
           </div>
-        </div>
-      ) : (
-        <p style={{ fontSize: "18px" }}>No itineraries available for {countryName}.</p>
-      )}
-
-      {/* Botón para volver a la lista de ciudades */}
-      <div style={{ marginTop: "30px" }}>
-        <button onClick={() => navigate("/cities")} style={styles.backButton}>
-          ⬅ Back to Cities
-        </button>
+        ))}
       </div>
+    ) : (
+      <p style={{ fontSize: "18px" }}>No itineraries available for {countryName}.</p>
+    )}
+
+    {/* 🔵 Botón para añadir un nuevo itinerario SIEMPRE visible */}
+    <div style={{ textAlign: "center", marginTop: "10px" }}>
+      <button  
+        onClick={() => navigate("/additinerary")}
+        style={styles.addButton}
+      >
+        ➕ Add Itinerary
+      </button>
     </div>
-  );
+
+    {/* Botón para volver a la lista de ciudades */}
+    <div style={{ marginTop: "30px" }}>
+      <button onClick={() => navigate("/cities")} style={styles.backButton}>
+        ⬅ Back to Cities
+      </button>
+    </div>
+  </div>
+);
 }
 
 
