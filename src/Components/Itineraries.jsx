@@ -6,26 +6,50 @@ import { useNavigate } from 'react-router-dom';
 
 function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
   const navigate = useNavigate();
-
-  // get the parameter "country" from the URL
   const { countryName } = useParams();
 
+  // Estado local para manejar la lista después de eliminar
+  const [localItineraries, setLocalItineraries] = useState(itineraries);
+
   // fetch data from Redux when the component mounts
-    useEffect(() => {
-      fetchItineraries();
-    }, [fetchItineraries]);
+  useEffect(() => {
+    fetchItineraries();
+  }, [fetchItineraries]);
 
-  // filter itineraries by country
-  const filteredItineraries = itineraries && Array.isArray(itineraries)
-  ? itineraries.filter(itinerary => 
-      itinerary.country && // Verificar que `country` no sea undefined
-      countryName && // Verificar que `countryName` tampoco sea undefined
-      itinerary.country.trim().toLowerCase() === countryName.trim().toLowerCase()
-    )
-  : [];
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this itinerary?");
+    if (!confirmDelete) return;
 
+    try {
+      const response = await fetch(`http://localhost:5000/itineraries/delete/${id}`, {
+        method: "DELETE",
+      });
 
-     // Render loading, error, or all itineraries data
+      if (response.ok) {
+        // Filtrar la lista y quitar el itinerario eliminado
+        setLocalItineraries(prevItineraries => prevItineraries.filter(itinerary => itinerary._id !== id));
+
+        alert("Itinerary deleted successfully");
+      } else {
+        const data = await response.json();
+        alert("Error deleting itinerary: " + data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to connect to server");
+    }
+  };
+
+  // Filtrar itinerarios por país
+  const filteredItineraries = localItineraries && Array.isArray(localItineraries)
+    ? localItineraries.filter(itinerary =>
+        itinerary.country &&
+        countryName &&
+        itinerary.country.trim().toLowerCase() === countryName.trim().toLowerCase()
+      )
+    : [];
+
+  // Renderizar loading, error o itinerarios
   if (loading) return <p>Loading itineraries...</p>;
   if (error) return <p>Error fetching itineraries: {error}</p>;
 
@@ -52,18 +76,29 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
                 <p><strong>Type:</strong> {itinerary.type}</p>
                 <p><strong>Difficulty:</strong> {itinerary.difficulty}</p>
                 <p><strong>Price:</strong> ${itinerary.price}</p>
+
+                {/* Botón para eliminar itinerario */}
+                <div style={{ textAlign: "center", marginTop: "10px" }}>
+                  <button  
+                    onClick={() => handleDelete(itinerary._id)} 
+                    style={styles.deleteButton}
+                  >
+                    🗑 Delete Itinerary
+                  </button>
+                </div>
               </div>
             </div>
           ))}
-          {/* Botón para añadir una nueva ciudad */}
+
+          {/* Botón para añadir un nuevo itinerario */}
           <div style={{ textAlign: "center", marginTop: "10px" }}>
-          <button  
-            onClick={() => navigate("/additinerary")}
-            style={styles.addButton}
-          >
-            ➕ Add Itinerary
-          </button>
-        </div>
+            <button  
+              onClick={() => navigate("/additinerary")}
+              style={styles.addButton}
+            >
+              ➕ Add Itinerary
+            </button>
+          </div>
         </div>
       ) : (
         <p style={{ fontSize: "18px" }}>No itineraries available for {countryName}.</p>
@@ -78,6 +113,7 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
     </div>
   );
 }
+
 
 const styles = {
   gridContainer: {
