@@ -4,10 +4,15 @@ import { fetchCities } from '../redux/actions/cityActions';
 import { Link } from "react-router-dom";
 import Itineraries from './Itineraries';
 import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../utilities/firebase';
+
+
 
 function CitiesList({ cities, loading, error, fetchCities }) {
   const [filter, setFilter] = useState("");
   const navigate = useNavigate();
+  const [user] = useAuthState(auth);
 
   // Fetch data from Redux when the component mounts
   useEffect(() => {
@@ -57,23 +62,25 @@ function CitiesList({ cities, loading, error, fetchCities }) {
   />
 
   {/* Botón para añadir una nueva ciudad */}
-  <button  
-    onClick={() => navigate("/addcity")} // Redirige a la página de formulario
-    style={{ 
-      fontFamily: 'Arial Rounded MT Bold',
-      fontWeight: 'bold',
-      fontSize: '12px', 
-      padding: '8px 12px', 
-      backgroundColor: '#09B6EB', 
-      color: "white", 
-      border: "none",
-      borderRadius: "5px",
-      cursor: "pointer",
-      transition: 'all 0.2s ease',
-    }}
-  >
-    + Add City
-  </button>
+  {user && (
+          <button  
+            onClick={() => navigate("/addcity")}
+            style={{
+              fontFamily: 'Arial Rounded MT Bold',
+              fontWeight: 'bold',
+              fontSize: '12px', 
+              padding: '8px 12px', 
+              backgroundColor: '#09B6EB', 
+              color: "white", 
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: 'all 0.2s ease',
+            }}
+          >
+            + Add City
+          </button>
+        )}
 </div>
 
       {/* Cities List */}
