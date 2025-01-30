@@ -5,10 +5,15 @@ import { Box, Typography, Button, Grid2 } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom'
 import { signInWithGoogle } from '../utilities/firebase';
+import { signOut } from 'firebase/auth';
+import { useState } from 'react';
 
 
 export const Landing = () => {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  
 
   const handleClickCities = () => {
     navigate('/cities');

@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchItineraries } from '../redux/actions/itineraryActions';
 import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../utilities/firebase';
 
 function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
   const navigate = useNavigate();
+  const [user] = useAuthState(auth);
   const { countryName } = useParams();
 
   // Estado local para manejar la lista después de eliminar
@@ -96,12 +99,14 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
 
     {/* 🔵 Botón para añadir un nuevo itinerario SIEMPRE visible */}
     <div style={{ textAlign: "center", marginTop: "10px" }}>
+    { user && (
       <button  
         onClick={() => navigate("/additinerary")}
         style={styles.addButton}
       >
         ➕ Add Itinerary
       </button>
+      )} 
     </div>
 
     {/* Botón para volver a la lista de ciudades */}
