@@ -4,7 +4,7 @@ import AddItineraryForm from "./ItineraryFormulari";
 
 describe("AddItineraryForm Component", () => {
   test("shows validation errors when fields are empty", async () => {
-    render(React.createElement(AddItineraryForm));
+    render(<AddItineraryForm />);
 
     fireEvent.click(screen.getByText("Add itinerary"));
 
@@ -19,7 +19,7 @@ describe("AddItineraryForm Component", () => {
   });
 
   test("allows submission when all fields are valid", async () => {
-    render(React.createElement(AddItineraryForm));
+    render(<AddItineraryForm />);
 
     fireEvent.change(screen.getByLabelText("Name:"), { target: { value: "Trip to Paris" } });
     fireEvent.change(screen.getByLabelText("Image URL:"), { target: { value: "http://example.com/image.jpg" } });
@@ -36,7 +36,7 @@ describe("AddItineraryForm Component", () => {
   });
 
   test("validates numerical fields correctly", async () => {
-    render(React.createElement(AddItineraryForm));
+    render(<AddItineraryForm />);
 
     fireEvent.change(screen.getByLabelText("Days:"), { target: { value: "-5" } });
     fireEvent.change(screen.getByLabelText("Difficulty:"), { target: { value: "6" } });
