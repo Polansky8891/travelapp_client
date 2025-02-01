@@ -19,14 +19,14 @@ function CitiesList({ cities, loading, error, fetchCities }) {
     fetchCities();
   }, [fetchCities]);
 
-  // Filter cities based on user input
+  // Filter countries based on user input
   const handleFilterChange = (event) => {
     setFilter(event.target.value.toLowerCase());
   };
 
   const filteredCities = filter
     ? cities.filter((city) =>
-        city.name.toLowerCase().startsWith(filter)
+        city.country.toLowerCase().startsWith(filter)
       )
     : cities; // Show all cities if no filter is applied
 
@@ -36,52 +36,63 @@ function CitiesList({ cities, loading, error, fetchCities }) {
 
   return (
     <div style={{ padding: "20px", backgroundColor: "#F8F8F8", minHeight: "100vh" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Look for your dream city</h2>
+      <h2 style={{ textAlign: "center", marginBottom: "20px" }}>Look for your dream country</h2>
 
       <div style={{ 
-  display: "flex", 
-  justifyContent: "center", 
-  alignItems: "center", 
-  gap: "10px", 
-  marginBottom: "20px" 
-}}>
+        display: "flex", 
+        alignItems: "center", 
+        gap: "10px", 
+        marginBottom: "20px", 
+        justifyContent: "center" 
+      }}>
+        
+        <button onClick={() => navigate("/")} style={{
+          padding: "6px 12px",
+          fontSize: "10px",
+          cursor: "pointer",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          backgroundColor: "#FFD700", 
+          color: "#000", 
+          transition: "all 0.3s ease",
+        }}>
+          Home
+        </button>
   
-  {/* Filter Input */}
-  <input
-    type="text"
-    placeholder="Type a letter..."
-    value={filter}
-    onChange={handleFilterChange}
-    style={{
-      padding: "8px",
-      width: "100%",
-      maxWidth: "250px",
-      border: "1px solid #ccc",
-      borderRadius: "4px",
-    }}
-  />
-
-  {/* Botón para añadir una nueva ciudad */}
-  {user && (
+        {/* Filter Input */}
+        <input
+          type="text"
+          placeholder="Filter by country..."
+          value={filter}
+          onChange={handleFilterChange}
+          style={{
+            padding: "8px",
+            width: "100%",
+            maxWidth: "250px",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+          }}
+        />
+  
+        {/* Botón para añadir una nueva ciudad */}
+        {user && (
           <button  
             onClick={() => navigate("/addcity")}
             style={{
-              fontFamily: 'Arial Rounded MT Bold',
-              fontWeight: 'bold',
-              fontSize: '12px', 
-              padding: '8px 12px', 
-              backgroundColor: '#09B6EB', 
-              color: "white", 
-              border: "none",
-              borderRadius: "5px",
+              padding: "6px 12px", 
+              fontSize: "10px", 
               cursor: "pointer",
-              transition: 'all 0.2s ease',
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              backgroundColor: "#09B6EB", 
+              color: "white", 
+              transition: "all 0.3s ease",
             }}
           >
-            + Add City
+            + City
           </button>
         )}
-</div>
+      </div>
 
       {/* Cities List */}
       {filteredCities.length > 0 ? (
@@ -107,10 +118,11 @@ function CitiesList({ cities, loading, error, fetchCities }) {
         </p>
       )};
     </div>
-    
-    
   );
 }
+
+
+
 
 const styles = {
   gridContainer: {
@@ -147,6 +159,21 @@ const styles = {
     transition: "color 0.3s ease",
     '&:hover': {
       color: "#BDF048", 
+    },
+  },
+  backButton: {
+    padding: "8px",
+    width: "100%",
+    maxWidth: "250px",
+    fontSize: "10px",
+    cursor: "pointer",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    backgroundColor: "#FFD700", 
+    color: "#000", 
+    transition: "all 0.3s ease",
+    '&:hover': {
+      backgroundColor: "#FFC107", 
     },
   },
 };

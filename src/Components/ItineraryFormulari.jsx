@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 const AddItineraryForm = () => {
+
+    const navigate = useNavigate();
+
+    const handleBackToCities = () => {
+        console.log("Navigating to /cities"); // Depuración
+        navigate("/cities");
+    };
+
     const [formData, setFormData] = useState({ 
         name: "",
         imageUrl: "",
@@ -178,6 +189,21 @@ const AddItineraryForm = () => {
 
                 <button type="submit" style={styles.button}>Add itinerary</button>
             </form>
+            <div style={{ marginTop: "30px" }}>
+      <button onClick={handleBackToCities}
+                    style={{
+                        padding: "6px 12px",
+                        fontSize: "10px",
+                        cursor: "pointer",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px",
+                        backgroundColor: "#FFD700", 
+                        color: "#000", 
+                        transition: "all 0.3s ease",
+        }}>
+        ⬅ Back to Cities
+      </button>
+    </div>
         </div>
     );
 };
