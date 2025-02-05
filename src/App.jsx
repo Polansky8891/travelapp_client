@@ -2,8 +2,7 @@
 import { Landing } from './Components/Landing'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CitiesList from './Components/Cities';
-import { colors, Container } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { Container } from '@mui/material';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import ItinerariesList from './Components/Itineraries';

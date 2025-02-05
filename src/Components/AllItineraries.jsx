@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { fetchItineraries } from '../redux/actions/itineraryActions';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';

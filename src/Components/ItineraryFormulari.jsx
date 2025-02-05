@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -6,7 +6,6 @@ const AddItineraryForm = () => {
     const navigate = useNavigate();
   
     const handleBackToCities = () => {
-      console.log("Navigating to /cities"); // Depuración
       navigate("/cities");
     };
   
@@ -86,7 +85,6 @@ const AddItineraryForm = () => {
           });
   
           const data = await response.json();
-          console.log("Response from server:", data);
   
           if (response.ok) {
             alert("Itinerary added successfully");

@@ -1,6 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import AddCityForm from "../Components/CityFormulari"; // Ajusta la ruta según tu estructura
-import React from "react";
+import AddCityForm from "../Components/CityFormulari";
 import "@testing-library/jest-dom";
 
 

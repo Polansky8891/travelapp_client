@@ -1,6 +1,4 @@
-import React from 'react'
 import mytineraryLogo from '../assets/media/mytineraryLogo.jpg'
-import circle_right from '../assets/media/circle_right.jpg'
 import { Box, Typography, Button, Grid2 } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom'

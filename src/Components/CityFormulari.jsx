@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const AddCityForm = () => {
@@ -52,7 +52,7 @@ const AddCityForm = () => {
         });
 
         const data = await response.json();
-        console.log("Response from server:", data);
+        
 
         if (response.ok) {
           alert("City added successfully!");
