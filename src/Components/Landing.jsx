@@ -9,7 +9,6 @@ import { signOut } from 'firebase/auth';
 import { useState, useEffect } from 'react';
 
 
-
 export const Landing = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,13 +34,7 @@ export const Landing = () => {
   
   return (
     <>
-      
-      <Box sx={{ 
-        textAlign: 'center', 
-        p: 2, 
-        backgroundColor: 'black' 
-      }}>
-        {/* Logo */}
+      <Box sx={{ textAlign: 'center', p: 2, backgroundColor: 'black' }}>
         <Box mb={4}>
           <img 
             src={mytineraryLogo}
@@ -50,14 +43,12 @@ export const Landing = () => {
           />
         </Box>
 
-        {/* Info Section */}
         <Box mb={7}>
           <Typography sx={{ color: "#09B6EB", fontStyle: 'italic', fontFamily: "Permanent Marker", fontWeight: 'bold' }} variant="h7" component="h5">
-            Find your perfect trip, designed by <br/>  insiders who know and love their cities
+            Find your perfect trip, designed by <br/> insiders who know and love their cities
           </Typography>
         </Box>
 
-        {/* Browsing Section */}
         <Box
           mb={6}
           sx={{
@@ -98,19 +89,13 @@ export const Landing = () => {
           </Button>
         </Box>
 
-        {/* Buttons Section */}
         <Box>
           {!isLoggedIn ? (
             <>
-              <Typography sx={{color: '#09B6EB', fontFamily: 'Arial Rounded MT Bold', fontWeight: 'bold'}} variant="h6" component="h4" mb={2}>
+              <Typography sx={{ color: '#09B6EB', fontFamily: 'Arial Rounded MT Bold', fontWeight: 'bold' }} variant="h6" component="h4" mb={2}>
                 Want to build your own MYtinerary?
               </Typography>
-              <Grid2
-                container 
-                spacing={3} 
-                justifyContent="center" 
-                alignItems="center"
-              >
+              <Grid2 container spacing={3} justifyContent="center" alignItems="center">
                 <Grid2 item>
                   <Button
                     onClick={handleLogin}  

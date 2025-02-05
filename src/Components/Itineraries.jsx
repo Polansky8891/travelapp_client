@@ -30,7 +30,9 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
 
       if (response.ok) {
         // Filtrar la lista y quitar el itinerario eliminado
-        setLocalItineraries(prevItineraries => prevItineraries.filter(itinerary => itinerary._id !== id));
+        setLocalItineraries((prevItineraries) =>
+          prevItineraries.filter((itinerary) => itinerary._id !== id)
+        );
 
         alert("Itinerary deleted successfully");
       } else {
@@ -45,10 +47,11 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
 
   // Filtrar itinerarios por país
   const filteredItineraries = localItineraries && Array.isArray(localItineraries)
-    ? localItineraries.filter(itinerary =>
-        itinerary.country &&
-        countryName &&
-        itinerary.country.trim().toLowerCase() === countryName.trim().toLowerCase()
+    ? localItineraries.filter(
+        (itinerary) =>
+          itinerary.country &&
+          countryName &&
+          itinerary.country.trim().toLowerCase() === countryName.trim().toLowerCase()
       )
     : [];
 
@@ -58,67 +61,60 @@ function ItinerariesList({ itineraries, loading, error, fetchItineraries }) {
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
-    <h2 style={{ marginBottom: "20px" }}>
-      Itinerary for {countryName}
-    </h2>
+      <h2 style={{ marginBottom: "20px" }}>Itinerary for {countryName}</h2>
 
-    {filteredItineraries.length > 0 ? (
-      <div style={styles.gridContainer}>
-        {filteredItineraries.map((itinerary, index) => (
-          <div key={index} style={styles.card}>
-            <img 
-              src={itinerary.imageUrl} 
-              alt={itinerary.name} 
-              style={styles.image} 
-              onError={(e) => e.target.style.display = 'none'} 
-            />
-            <div style={styles.cardContent}>
-              <h3>{itinerary.name}</h3>
-              <p><strong>City:</strong> {Array.isArray(itinerary.city) ? itinerary.city.join(", ") : itinerary.city}</p>
-              <p><strong>Days:</strong> {itinerary.days}</p>
-              <p><strong>Type:</strong> {itinerary.type}</p>
-              <p><strong>Difficulty:</strong> {itinerary.difficulty}</p>
-              <p><strong>Price:</strong> ${itinerary.price}</p>
-
-              {/* Botón para eliminar itinerario */}
-              <div style={{ textAlign: "center", marginTop: "10px" }}>
-                <button  
-                  onClick={() => handleDelete(itinerary._id)} 
-                  style={styles.deleteButton}
-                >
-                  🗑 Delete Itinerary
-                </button>
+      {filteredItineraries.length > 0 ? (
+        <div style={styles.gridContainer}>
+          {filteredItineraries.map((itinerary, index) => (
+            <div key={index} style={styles.card}>
+              <img 
+                src={itinerary.imageUrl} 
+                alt={itinerary.name} 
+                style={styles.image} 
+                onError={(e) => (e.target.style.display = 'none')} 
+              />
+              <div style={styles.cardContent}>
+                <h3>{itinerary.name}</h3>
+                <p><strong>City:</strong> {Array.isArray(itinerary.city) ? itinerary.city.join(", ") : itinerary.city}</p>
+                <p><strong>Days:</strong> {itinerary.days}</p>
+                <p><strong>Type:</strong> {itinerary.type}</p>
+                <p><strong>Difficulty:</strong> {itinerary.difficulty}</p>
+                <p><strong>Price:</strong> ${itinerary.price}</p>
+                <div style={{ textAlign: "center", marginTop: "10px" }}>
+                  <button 
+                    onClick={() => handleDelete(itinerary._id)} 
+                    style={styles.deleteButton}
+                  >
+                    🗑 Delete Itinerary
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      ) : (
+        <p style={{ fontSize: "18px" }}>No itineraries available for {countryName}.</p>
+      )}
+
+      {user && (
+        <div style={{ textAlign: "center", marginTop: "10px" }}>
+          <button 
+            onClick={() => navigate("/additinerary")} 
+            style={styles.addButton}
+          >
+            ➕ Add Itinerary
+          </button>
+        </div>
+      )}
+
+      <div style={{ marginTop: "30px" }}>
+        <button onClick={() => navigate("/cities")} style={styles.backButton}>
+          ⬅ Back to Cities
+        </button>
       </div>
-    ) : (
-      <p style={{ fontSize: "18px" }}>No itineraries available for {countryName}.</p>
-    )}
-
-    {/* 🔵 Botón para añadir un nuevo itinerario SIEMPRE visible */}
-    <div style={{ textAlign: "center", marginTop: "10px" }}>
-    { user && (
-      <button  
-        onClick={() => navigate("/additinerary")}
-        style={styles.addButton}
-      >
-        ➕ Add Itinerary
-      </button>
-      )} 
     </div>
-
-    {/* Botón para volver a la lista de ciudades */}
-    <div style={{ marginTop: "30px" }}>
-      <button onClick={() => navigate("/cities")} style={styles.backButton}>
-        ⬅ Back to Cities
-      </button>
-    </div>
-  </div>
-);
+  );
 }
-
 
 const styles = {
   gridContainer: {
@@ -145,16 +141,6 @@ const styles = {
   cardContent: {
     padding: "15px",
   },
-  cityName: {
-    fontSize: "18px",
-    fontWeight: "bold",
-    marginBottom: "10px",
-    color: "inherit", 
-  },
-  text: {
-    fontSize: "14px",
-    color: "inherit", 
-  },
   backButton: {
     padding: "12px 20px",
     fontSize: "16px",
@@ -164,14 +150,9 @@ const styles = {
     backgroundColor: "#FFD700", 
     color: "#000", 
     transition: "all 0.3s ease",
-    '&:hover': {
-      backgroundColor: "#FFC107", 
-    },
   },
 };
 
-
-// connecting the component to the Redux store
 const mapStateToProps = (state) => ({
   itineraries: state.itineraries.itineraries,
   loading: state.itineraries.loading,
@@ -181,5 +162,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchItineraries: () => dispatch(fetchItineraries()),
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItinerariesList);

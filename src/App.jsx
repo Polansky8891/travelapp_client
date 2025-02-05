@@ -13,9 +13,6 @@ import AddItineraryForm from './Components/ItineraryFormulari';
 
 function App() {
 
-  
-  
-
   return (
     <Provider store={store}>
     <Container sx={{ bgcolor: "white", height:"100vh"}}>
